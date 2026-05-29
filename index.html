@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MEXC Spread Bot</title>
+    <meta
+      name="description"
+      content="A live spread-tracking Telegram bot for MEXC spot and futures markets."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="ambient ambient-left"></div>
+      <div class="ambient ambient-right"></div>
+
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="MEXC Spread Bot home">
+          <span class="brand-copy">
+            <strong>MEXC Spread Bot</strong>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#workflow">Workflow</a>
+          <a href="#commands">Commands</a>
+          <a href="#team">Team</a>
+        </nav>
+
+        <a class="header-cta" href="#launch">Launch Guide</a>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Live market signal bot for Telegram</p>
+            <h1>Track real MEXC spot/futures spreads without babysitting charts.</h1>
+            <p class="hero-text">
+              MEXC Spread Bot watches live spot and perpetual futures feeds, detects
+              spread openings, deepens, and closes, then delivers structured alerts
+              with market links, 24h amount context, and threaded updates right in Telegram.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#launch">See launch flow</a>
+              <a class="button button-secondary" href="#preview">Explore live preview</a>
+            </div>
+
+            <ul class="hero-stats" aria-label="Project highlights">
+              <li>
+                <strong>Real-time</strong>
+                <span>MEXC spot + futures websockets</span>
+              </li>
+              <li>
+                <strong>3 event types</strong>
+                <span>Open, deepen, close lifecycle</span>
+              </li>
+              <li>
+                <strong>Telegram-native</strong>
+                <span>Inline buttons and threaded updates</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="hero-panel" id="preview">
+            <div class="hero-panel-topline">
+              <span class="status-pill status-live">Live parser</span>
+              <span class="status-pill">Telegram polling</span>
+              <span class="status-pill">MEXC spot/futures</span>
+            </div>
+
+            <div class="phone-frame">
+              <div class="phone-header">
+                <div>
+                  <strong>MEXC Spread Bot</strong>
+                  <small>@mexc_spread_tracker_bot</small>
+                </div>
+                <span class="phone-dot"></span>
+              </div>
+
+              <div class="message-stack">
+                <article class="message-card message-card-system">
+                  <p class="message-title">Bot status</p>
+                  <p>
+                    This chat is subscribed and ready. You will receive spread alerts as
+                    soon as the parser detects open, deepen, and close events.
+                  </p>
+                </article>
+
+                <article class="message-card message-card-alert" data-alert-panel>
+                  <div class="message-badge">Spread event</div>
+                  <h2 data-alert-title>LONG #SWARMS spread +1.81% detected</h2>
+                  <p class="message-subtitle" data-alert-peak>daily peak was +2.00%</p>
+
+                  <dl class="message-grid">
+                    <div>
+                      <dt>Spot</dt>
+                      <dd data-alert-spot>$0.007787</dd>
+                    </div>
+                    <div>
+                      <dt>Futures</dt>
+                      <dd data-alert-futures>$0.007928</dd>
+                    </div>
+                    <div>
+                      <dt>Spot 24h amount</dt>
+                      <dd data-alert-spot-amount>$926.9K</dd>
+                    </div>
+                    <div>
+                      <dt>Futures 24h amount</dt>
+                      <dd data-alert-futures-amount>$1.2M</dd>
+                    </div>
+                  </dl>
+
+                  <div class="message-actions">
+                    <button class="message-action">Spot</button>
+                    <button class="message-action">Futures</button>
+                  </div>
+                </article>
+
+                <article class="message-card message-card-close">
+                  <span class="close-check">✓</span>
+                  <p>#SWARMS aligned in 17 sec</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="ticker-strip" aria-label="Alert examples">
+          <div class="ticker-track">
+            <span>OPEN · LONG #ELIZAOS +2.42%</span>
+            <span>DEEPEN · SHORT #GITLAWB -2.85%</span>
+            <span>CLOSE · #NOCK aligned in 20 min</span>
+            <span>OPEN · LONG #SATO +1.61%</span>
+            <span>DEEPEN · LONG #SWARMS +1.81%</span>
+            <span>OPEN · SHORT #UB -2.13%</span>
+          </div>
+        </section>
+
+        <section class="section" id="features">
+          <div class="section-heading">
+            <p class="eyebrow">Why it is useful</p>
+            <h2>Built to turn noisy market movement into readable trading context.</h2>
+            <p>
+              The project is not just a websocket reader. It is a complete alert workflow:
+              feed ingestion, spread state management, Telegram delivery, symbol blacklist,
+              persistence, and operator-friendly commands.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-index">01</span>
+              <h3>Live spread detection</h3>
+              <p>
+                The parser keeps live spot and futures prices in sync and calculates
+                signed spread percentages in real time.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-index">02</span>
+              <h3>Threaded event lifecycle</h3>
+              <p>
+                Open alerts start the thread, deepen updates reply into it, and close
+                messages finish the narrative cleanly.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-index">03</span>
+              <h3>Comparable 24h amount reporting</h3>
+              <p>
+                Spot and futures lines both show quote-denominated 24h amount in USDT,
+                avoiding unit mismatches between coins and futures contracts.
+              </p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-index">04</span>
+              <h3>Operator controls</h3>
+              <p>
+                Admin commands expose a lightweight blacklist, so noisy symbols can be
+                muted without redeploying anything.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section workflow" id="workflow">
+          <div class="section-heading">
+            <p class="eyebrow">Pipeline</p>
+            <h2>One process, clear responsibilities, minimal operational overhead.</h2>
+          </div>
+
+          <div class="workflow-grid">
+            <article class="workflow-card">
+              <h3>1. MEXC market feeds</h3>
+              <p>
+                Spot mini-tickers arrive over protobuf, futures tickers arrive as JSON,
+                and both are normalized into a shared market data queue.
+              </p>
+            </article>
+            <article class="workflow-card">
+              <h3>2. Spread state manager</h3>
+              <p>
+                Thresholds, debounce logic, daily peaks, and spread lifecycles are handled
+                in one dedicated parser stage.
+              </p>
+            </article>
+            <article class="workflow-card">
+              <h3>3. Telegram delivery</h3>
+              <p>
+                The bot consumes `SpreadEvent` objects, formats them, remembers thread
+                message IDs, and posts readable market alerts.
+              </p>
+            </article>
+          </div>
+
+          <div class="code-board">
+            <div class="code-board-topline">
+              <span></span><span></span><span></span>
+            </div>
+            <pre><code>MEXC Spot WS ----\
+                  &gt; market_data_queue -&gt; state_manager -&gt; spread_event_queue -&gt; Telegram bot
+MEXC Futures WS -/</code></pre>
+          </div>
+        </section>
+
+        <section class="section simulator">
+          <div class="section-heading">
+            <p class="eyebrow">Alert simulator</p>
+            <h2>Toggle the event type and see how the bot communicates the state.</h2>
+          </div>
+
+          <div class="simulator-grid">
+            <div class="simulator-controls" role="tablist" aria-label="Alert scenarios">
+              <button class="sim-tab is-active" data-scenario="open">Open event</button>
+              <button class="sim-tab" data-scenario="deepen">Deepen event</button>
+              <button class="sim-tab" data-scenario="close">Close event</button>
+            </div>
+
+            <div class="simulator-display">
+              <div class="simulator-shell">
+                <p class="simulator-caption" data-sim-caption>
+                  A new spread crossed the open threshold and started a new Telegram thread.
+                </p>
+                <div class="simulator-preview" data-sim-preview>
+                  🤑 LONG #SWARMS spread +1.81% detected
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section commands" id="commands">
+          <div class="section-heading">
+            <p class="eyebrow">Operational surface</p>
+            <h2>Simple commands, low ceremony, enough control for a real operator.</h2>
+          </div>
+
+          <div class="command-grid">
+            <article class="command-card">
+              <code>/start</code>
+              <p>Subscribe the current chat and activate spread notifications.</p>
+            </article>
+            <article class="command-card">
+              <code>/stop</code>
+              <p>Unsubscribe the current chat without touching parser state.</p>
+            </article>
+            <article class="command-card">
+              <code>/help</code>
+              <p>Show the command list and explain how threaded alerts behave.</p>
+            </article>
+            <article class="command-card">
+              <code>/about</code>
+              <p>Summarize the project, purpose, and market-link behavior.</p>
+            </article>
+            <article class="command-card">
+              <code>/ban_token SYMBOL</code>
+              <p>Admin-only control to suppress noisy symbols from alert delivery.</p>
+            </article>
+            <article class="command-card">
+              <code>/banned_tokens</code>
+              <p>Inspect the current blacklist stored in the bot persistence layer.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section launch" id="launch">
+          <div class="section-heading">
+            <p class="eyebrow">Launch guide</p>
+            <h2>Designed to be easy to run locally, honest about hosting tradeoffs.</h2>
+          </div>
+
+          <div class="launch-layout">
+            <div class="launch-card">
+              <h3>Local first</h3>
+              <ol>
+                <li>Create a Python virtual environment.</li>
+                <li>Install dependencies from <code>requirements.txt</code>.</li>
+                <li>Generate protobuf bindings with <code>python scripts/generate_proto.py</code>.</li>
+                <li>Create a local <code>.env</code> from <code>.env.example</code>.</li>
+                <li>Run <code>python main.py</code> and subscribe via <code>/start</code>.</li>
+              </ol>
+            </div>
+
+            <div class="launch-card">
+              <h3>Hosting posture</h3>
+              <p>
+                The current architecture is strongest as a local or paid-worker deployment.
+                Free Render web services are a poor fit because the bot depends on continuous
+                polling, live websocket connections, and file-backed persistence.
+              </p>
+              <div class="launch-note">
+                <strong>Recommendation</strong>
+                <span>
+                  Keep it local for pet-project use, or move to a paid background worker
+                  with persistent storage when you want stable 24/7 uptime.
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section team" id="team">
+          <div class="section-heading">
+            <p class="eyebrow">Built by two contributors</p>
+            <h2>A split ownership model with clear responsibilities.</h2>
+          </div>
+
+          <div class="team-grid">
+            <article class="team-card">
+              <span class="team-role">Bot and interface</span>
+              <h3>Tenyokj</h3>
+              <p>
+                Focused on Telegram bot logic, message formatting, operator commands,
+                and the end-user interaction layer.
+              </p>
+              <div class="team-links">
+                <a href="https://github.com/Tenyokj" target="_blank" rel="noreferrer">
+                  github.com/Tenyokj
+                </a>
+                <a href="https://t.me/tenkoffj" target="_blank" rel="noreferrer">
+                  Telegram: @tenkoffj
+                </a>
+              </div>
+            </article>
+            <article class="team-card">
+              <span class="team-role">Parser and market integration</span>
+              <h3>likeastyro</h3>
+              <p>
+                Focused on the parser pipeline, MEXC API integration, websocket feeds,
+                spread calculations, and market-data processing.
+              </p>
+              <div class="team-links">
+                <a href="https://github.com/likeastyro" target="_blank" rel="noreferrer">
+                  github.com/likeastyro
+                </a>
+                <a href="https://github.com/likeastyro/mex-spread-tracker" target="_blank" rel="noreferrer">
+                  MEXC Spread Bot github
+                </a>
+                <a href="https://t.me/Ytug421" target="_blank" rel="noreferrer">
+                  Telegram: @Ytug421
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
