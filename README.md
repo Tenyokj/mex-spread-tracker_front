@@ -1,3 +1,3 @@
-<img src"/logo.png">
+![LOGO](/logo.png)
 
 Frontend Respository of MST bot.
